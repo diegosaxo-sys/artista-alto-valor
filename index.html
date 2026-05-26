@@ -172,6 +172,11 @@
     margin-bottom: 24px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.3s forwards;
+    background: rgba(10,9,8,0.55);
+    padding: 8px 16px;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+    display: inline-block;
   }
 
   .hero h1 {
@@ -1005,6 +1010,7 @@
 
   const SUPABASE_URL = 'https://zpumfpjxkahxffkixjsn.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwdW1mcGp4a2FoeGZma2l4anNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MDMzNzgsImV4cCI6MjA5MjI3OTM3OH0.ykmBkcfiAf2HJorylZsnFVn2h_nI8HCSbQyTxjLVdf0';
+  const EMAIL_SERVER = 'https://webinar-emails-diego.onrender.com';
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -1018,6 +1024,7 @@
     btn.disabled = true;
 
     try {
+      // 1. Guardar en Supabase
       const res = await fetch(`${SUPABASE_URL}/rest/v1/webinar_registros`, {
         method: 'POST',
         headers: {
@@ -1029,15 +1036,21 @@
         body: JSON.stringify({ nombre, email, disciplina })
       });
 
-      if (res.ok) {
-        btn.textContent = '✓ Plaza reservada — te enviamos el enlace';
-        btn.style.background = '#2d6a2d';
-        btn.style.color = '#fff';
-        e.target.querySelectorAll('input').forEach(i => i.disabled = true);
-        e.target.querySelector('select').disabled = true;
-      } else {
-        throw new Error('Error al guardar');
-      }
+      if (!res.ok) throw new Error('Error al guardar');
+
+      // 2. Mandar email de confirmación
+      await fetch(`${EMAIL_SERVER}/confirmar`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, email })
+      });
+
+      btn.textContent = '✓ Plaza reservada — revisa tu email';
+      btn.style.background = '#2d6a2d';
+      btn.style.color = '#fff';
+      e.target.querySelectorAll('input').forEach(i => i.disabled = true);
+      e.target.querySelector('select').disabled = true;
+
     } catch (err) {
       btn.textContent = 'Algo fue mal — inténtalo de nuevo';
       btn.style.background = '#8b2020';
