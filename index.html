@@ -956,16 +956,47 @@
 
   reveals.forEach(el => observer.observe(el));
 
-  // Form submit — conectar con Google Forms o tu backend
-  function handleSubmit(e) {
+  const SUPABASE_URL = 'https://zpumfpjxkahxffkixjsn.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwdW1mcGp4a2FoeGZma2l4anNuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3MDMzNzgsImV4cCI6MjA5MjI3OTM3OH0.ykmBkcfiAf2HJorylZsnFVn2h_nI8HCSbQyTxjLVdf0';
+
+  async function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button');
-    btn.textContent = '✓ Plaza reservada — te enviamos el enlace';
-    btn.style.background = '#2d6a2d';
-    btn.style.color = '#fff';
+    const inputs = e.target.querySelectorAll('input, select');
+    const nombre = inputs[0].value.trim();
+    const email = inputs[1].value.trim();
+    const disciplina = inputs[2].value;
+
+    btn.textContent = 'Enviando...';
     btn.disabled = true;
-    // Aquí conectas con tu formulario de Google o tu backend
-    // fetch('/api/registro', { method: 'POST', body: ... })
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/webinar_registros`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ nombre, email, disciplina })
+      });
+
+      if (res.ok) {
+        btn.textContent = '✓ Plaza reservada — te enviamos el enlace';
+        btn.style.background = '#2d6a2d';
+        btn.style.color = '#fff';
+        e.target.querySelectorAll('input').forEach(i => i.disabled = true);
+        e.target.querySelector('select').disabled = true;
+      } else {
+        throw new Error('Error al guardar');
+      }
+    } catch (err) {
+      btn.textContent = 'Algo fue mal — inténtalo de nuevo';
+      btn.style.background = '#8b2020';
+      btn.style.color = '#fff';
+      btn.disabled = false;
+    }
   }
 </script>
 
