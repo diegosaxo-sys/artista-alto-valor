@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artista de Alto Valor — Webinar Gratuito 8 Junio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --negro: #0a0908;
+    --negro-suave: #111010;
+    --dorado: #c9a84c;
+    --dorado-claro: #e8c97a;
+    --dorado-tenue: rgba(201,168,76,0.12);
+    --blanco: #f5f0e8;
+    --blanco-suave: rgba(245,240,232,0.7);
+    --gris: rgba(245,240,232,0.35);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 80px 24px 60px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-foto {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--dorado);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+    /* REEMPLAZA src con tu foto de Drive exportada como URL directa */
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--gris);
+    letter-spacing: 0.05em;
+  }
+
+  .foto-placeholder {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 1.5px solid var(--dorado);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--gris);
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.4;
+    padding: 12px;
+  }
+
+  .logo {
+    height: 36px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+    /* REEMPLAZA src con tu logo */
+  }
+
+  .logo-placeholder {
+    height: 36px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--dorado);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 8vw, 82px);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.4s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--dorado-claro);
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: var(--blanco-suave);
+    max-width: 560px;
+    line-height: 1.7;
+    margin: 28px auto 48px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.55s forwards;
+  }
+
+  .fecha-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--dorado);
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dorado-claro);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.65s forwards;
+  }
+
+  .fecha-badge::before {
+    content: '◆';
+    font-size: 8px;
+  }
+
+  .cta-primary {
+    display: inline-block;
+    background: var(--dorado);
+    color: var(--negro);
+    padding: 18px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s, transform 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.75s forwards;
+  }
+
+  .cta-primary:hover {
+    background: var(--dorado-claro);
+    transform: translateY(-2px);
+  }
+
+  .hero-nota {
+    font-size: 12px;
+    color: var(--gris);
+    margin-top: 16px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.85s forwards;
+    letter-spacing: 0.03em;
+  }
+
+  /* LÍNEA DIVISORA */
+  .divider {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--dorado), transparent);
+    margin: 0 auto;
+  }
+
+  /* SECCIÓN DOLOR */
+  .seccion {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .seccion-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .seccion-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--dorado-tenue);
+  }
+
+  .dolor-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 300;
+    line-height: 1.35;
+    margin-bottom: 48px;
+    color: var(--blanco);
+  }
+
+  .dolor-intro em {
+    font-style: italic;
+    color: var(--dorado-claro);
+  }
+
+  .dolor-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .dolor-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--blanco-suave);
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+  }
+
+  .dolor-lista li:last-child {
+    border-bottom: none;
+  }
+
+  .dolor-lista li::before {
+    content: '—';
+    color: var(--dorado);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* HISTORIA DIEGO */
+  .historia {
+    background: var(--negro-suave);
+    border-left: 1px solid var(--dorado);
+    padding: 60px 48px;
+    margin: 0 24px;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+  }
+
+  .historia::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    color: var(--dorado-tenue);
+    position: absolute;
+    top: -20px;
+    left: 32px;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .historia p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--blanco);
+    margin-bottom: 32px;
+  }
+
+  .historia-firma {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .historia-foto {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--dorado);
+    background: #1a1a1a;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .historia-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .historia-nombre {
+    font-size: 13px;
+    color: var(--dorado);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .historia-cargo {
+    font-size: 12px;
+    color: var(--gris);
+    letter-spacing: 0.05em;
+  }
+
+  /* QUÉ VAS A APRENDER */
+  .programa {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .semanas {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .semana {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+    align-items: start;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .semana:hover {
+    background: var(--dorado-tenue);
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 0 -16px;
+    border-radius: 2px;
+  }
+
+  .semana-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--dorado-tenue);
+    line-height: 1;
+    padding-top: 4px;
+    border-right: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .semana-contenido h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--blanco);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .semana-contenido p {
+    font-size: 14px;
+    color: var(--blanco-suave);
+    line-height: 1.65;
+  }
+
+  /* PARA QUIÉN */
+  .para-quien {
+    background: linear-gradient(135deg, #0f0e0d 0%, #131110 100%);
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .para-quien::before {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .para-quien-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .perfiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .perfil {
+    background: rgba(245,240,232,0.03);
+    border: 1px solid rgba(245,240,232,0.06);
+    padding: 32px 24px;
+    transition: border-color 0.3s;
+  }
+
+  .perfil:hover {
+    border-color: var(--dorado);
+  }
+
+  .perfil-icono {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .perfil h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--blanco);
+    margin-bottom: 8px;
+  }
+
+  .perfil p {
+    font-size: 13px;
+    color: var(--gris);
+    line-height: 1.6;
+  }
+
+  /* WEBINAR INFO */
+  .webinar-info {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .webinar-detalles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+    margin: 48px 0;
+  }
+
+  .detalle {
+    padding: 28px 24px;
+    border: 1px solid rgba(201,168,76,0.2);
+    background: var(--dorado-tenue);
+  }
+
+  .detalle-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dorado);
+    margin-bottom: 10px;
+  }
+
+  .detalle-valor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--blanco);
+  }
+
+  .agenda {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 40px;
+  }
+
+  .agenda li {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+    font-size: 15px;
+    color: var(--blanco-suave);
+    line-height: 1.5;
+  }
+
+  .agenda-tiempo {
+    font-size: 12px;
+    color: var(--dorado);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    padding-top: 2px;
+    min-width: 60px;
+  }
+
+  /* FORMULARIO */
+  .form-seccion {
+    background: var(--negro-suave);
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-seccion::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .form-inner {
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .form-inner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .form-inner h2 em {
+    font-style: italic;
+    color: var(--dorado-claro);
+  }
+
+  .form-inner p {
+    font-size: 14px;
+    color: var(--blanco-suave);
+    margin-bottom: 40px;
+    line-height: 1.65;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form input {
+    background: rgba(245,240,232,0.05);
+    border: 1px solid rgba(245,240,232,0.12);
+    color: var(--blanco);
+    padding: 16px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form input::placeholder {
+    color: var(--gris);
+  }
+
+  .form input:focus {
+    border-color: var(--dorado);
+  }
+
+  .form-select {
+    background: rgba(245,240,232,0.05);
+    border: 1px solid rgba(245,240,232,0.12);
+    color: var(--blanco);
+    padding: 16px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 2px;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    transition: border-color 0.2s;
+  }
+
+  .form-select:focus {
+    border-color: var(--dorado);
+  }
+
+  .form-select option {
+    background: #1a1a1a;
+    color: var(--blanco);
+  }
+
+  .form button {
+    background: var(--dorado);
+    color: var(--negro);
+    padding: 18px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 8px;
+  }
+
+  .form button:hover {
+    background: var(--dorado-claro);
+    transform: translateY(-2px);
+  }
+
+  .form-legal {
+    font-size: 11px;
+    color: var(--gris);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(245,240,232,0.06);
+  }
+
+  footer p {
+    font-size: 12px;
+    color: var(--gris);
+    letter-spacing: 0.05em;
+  }
+
+  footer a {
+    color: var(--dorado);
+    text-decoration: none;
+  }
+
+  /* ANIMACIONES */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .historia { padding: 40px 28px; }
+    .semana { grid-template-columns: 48px 1fr; gap: 16px; }
+    .semana-num { font-size: 28px; }
+    .perfiles { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- LOGO — reemplaza con: <img class="logo" src="TU_URL_LOGO" alt="Diego Caride"> -->
+  <div class="logo-placeholder">◆ Diego Caride</div>
+
+  <!-- FOTO — reemplaza con: <img class="hero-foto" src="TU_URL_FOTO" alt="Diego Caride"> -->
+  <div class="foto-placeholder">Tu foto aquí</div>
+
+  <p class="eyebrow">Webinar Gratuito · 8 de Junio</p>
+
+  <h1>
+    Artista<br>
+    de <em>Alto Valor</em>
+  </h1>
+
+  <p class="hero-sub">
+    Cómo multiplicar tus tarifas, poner tus condiciones y automatizar tu negocio con IA — aunque ahora mismo sientas que el mercado no te valora.
+  </p>
+
+  <div class="fecha-badge">Domingo 8 de junio · Online · Gratuito</div>
+
+  <a href="#registro" class="cta-primary">Reservar mi plaza gratis</a>
+  <p class="hero-nota">Plazas limitadas · Sin compromiso</p>
+
+</section>
+
+<div class="divider"></div>
+
+<!-- DOLOR -->
+<section class="seccion">
+  <p class="seccion-label reveal">El problema</p>
+
+  <p class="dolor-intro reveal">
+    Eres bueno en lo que haces.<br>
+    Pero llevas años cobrando <em>menos de lo que mereces.</em>
+  </p>
+
+  <ul class="dolor-lista">
+    <li class="reveal">Das tu precio y sientes que tienes que justificarlo. O peor: lo bajas antes de que te digan nada.</li>
+    <li class="reveal">Clientes que te torean, pagan a 60 días, piden descuentos o tratan tu arte como si fuera un servicio cualquiera.</li>
+    <li class="reveal">Sabes que deberías cobrar más, pero tienes miedo de que digan no y te quedas sin trabajo.</li>
+    <li class="reveal">Pasas horas persiguiendo presupuestos, respondiendo consultas y gestionando burocracia que no tiene nada que ver con crear.</li>
+    <li class="reveal">Y al final del mes, la suma no sale y te preguntas si esto tiene futuro.</li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- HISTORIA DIEGO -->
+<section style="padding: 0 0 80px;">
+  <div class="historia reveal">
+    <p>
+      Yo multipliqué mis tarifas por cuatro por el mismo servicio. No cambié mi nivel técnico. Cambié lo que creía que merecía — y cómo lo decía.
+    </p>
+    <div class="historia-firma">
+      <div class="historia-foto">
+        <!-- Reemplaza con: <img src="TU_URL_FOTO" alt="Diego"> -->
+      </div>
+      <div>
+        <p class="historia-nombre">Diego Caride</p>
+        <p class="historia-cargo">Músico · Profesor · @diegocaridemusic</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA -->
+<section class="programa">
+  <p class="seccion-label reveal">El programa</p>
+
+  <p class="dolor-intro reveal" style="margin-bottom: 8px;">
+    5 semanas para transformar<br>cómo valoras y vendes tu arte.
+  </p>
+  <p class="reveal" style="color: var(--gris); font-size: 14px; margin-bottom: 0;">Lo que veremos en el webinar del 8 de junio — y lo que construimos juntos después.</p>
+
+  <div class="semanas">
+    <div class="semana reveal">
+      <div class="semana-num">01</div>
+      <div class="semana-contenido">
+        <h3>Identidad y precio</h3>
+        <p>Tu tarifa actual no es un problema de mercado. Es una decisión de identidad. La historia real detrás de multiplicar mis tarifas por cuatro — y lo que hay detrás.</p>
+      </div>
+    </div>
+    <div class="semana reveal">
+      <div class="semana-num">02</div>
+      <div class="semana-contenido">
+        <h3>Condiciones por delante</h3>
+        <p>Cómo presentar presupuestos, pedir adelantos y poner límites sin tensión ni miedo al no.</p>
+      </div>
+    </div>
+    <div class="semana reveal">
+      <div class="semana-num">03</div>
+      <div class="semana-contenido">
+        <h3>Cerrar ciclos</h3>
+        <p>Cómo dejar ir al cliente que no te conviene — y por qué eso es exactamente lo que atrae al que sí.</p>
+      </div>
+    </div>
+    <div class="semana reveal">
+      <div class="semana-num">04</div>
+      <div class="semana-contenido">
+        <h3>IA aplicada a tu negocio</h3>
+        <p>Presupuestos automáticos, seguimiento de clientes, respuestas sin esfuerzo. Tu negocio funcionando sin que estés detrás de todo.</p>
+      </div>
+    </div>
+    <div class="semana reveal">
+      <div class="semana-num">05</div>
+      <div class="semana-contenido">
+        <h3>Integración y plan de acción</h3>
+        <p>Casos reales del grupo, dudas en directo y tu plan concreto para los próximos 90 días.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="para-quien">
+  <div class="para-quien-inner">
+    <p class="seccion-label reveal">Para quién es</p>
+    <p class="dolor-intro reveal">Para artistas que ya crean.<br>Que aún no cobran <em>lo que valen.</em></p>
+
+    <div class="perfiles">
+      <div class="perfil reveal">
+        <div class="perfil-icono">🎷</div>
+        <h4>Músicos</h4>
+        <p>Bodas, eventos, clases. Cansados de que el mercado marque el precio.</p>
+      </div>
+      <div class="perfil reveal">
+        <div class="perfil-icono">📸</div>
+        <h4>Fotógrafos</h4>
+        <p>Gran trabajo, clientes que regatean. Tiempo de cambiar esa dinámica.</p>
+      </div>
+      <div class="perfil reveal">
+        <div class="perfil-icono">🎨</div>
+        <h4>Ilustradores y diseñadores</h4>
+        <p>Proyectos infravalorados. Arte tratado como comodidad.</p>
+      </div>
+      <div class="perfil reveal">
+        <div class="perfil-icono">🎭</div>
+        <h4>Actores y artistas escénicos</h4>
+        <p>Talento real, inseguridad con el dinero. Eso tiene solución.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEBINAR DETALLES -->
+<section class="webinar-info">
+  <p class="seccion-label reveal">El webinar del 8 de junio</p>
+  <p class="dolor-intro reveal">60 minutos que pueden cambiar<br>lo que cobras este verano.</p>
+
+  <div class="webinar-detalles">
+    <div class="detalle reveal">
+      <p class="detalle-label">Fecha</p>
+      <p class="detalle-valor">8 Junio 2026</p>
+    </div>
+    <div class="detalle reveal">
+      <p class="detalle-label">Formato</p>
+      <p class="detalle-valor">Online · Zoom</p>
+    </div>
+    <div class="detalle reveal">
+      <p class="detalle-label">Precio</p>
+      <p class="detalle-valor">Gratuito</p>
+    </div>
+    <div class="detalle reveal">
+      <p class="detalle-label">Duración</p>
+      <p class="detalle-valor">60 min</p>
+    </div>
+  </div>
+
+  <ul class="agenda">
+    <li class="reveal">
+      <span class="agenda-tiempo">0–15'</span>
+      Cómo multipliqué mis tarifas por cuatro — mi historia real sin filtros
+    </li>
+    <li class="reveal">
+      <span class="agenda-tiempo">15–35'</span>
+      Los 3 errores que hacen que los artistas cobren poco aunque sean buenos
+    </li>
+    <li class="reveal">
+      <span class="agenda-tiempo">35–50'</span>
+      En directo: cómo automatizar tu presupuesto con IA en 5 minutos
+    </li>
+    <li class="reveal">
+      <span class="agenda-tiempo">50–60'</span>
+      El programa Artista de Alto Valor: qué es y cómo entrar
+    </li>
+  </ul>
+</section>
+
+<!-- FORMULARIO -->
+<section class="form-seccion" id="registro">
+  <div class="form-inner">
+    <h2>Reserva tu plaza<br><em>ahora</em></h2>
+    <p>Es gratuito. Es online. Y puede ser el punto de inflexión que llevas tiempo buscando.</p>
+
+    <form class="form" onsubmit="handleSubmit(event)">
+      <input type="text" placeholder="Tu nombre" required>
+      <input type="email" placeholder="Tu email" required>
+      <select class="form-select">
+        <option value="" disabled selected>¿A qué te dedicas?</option>
+        <option>Músico / Cantante</option>
+        <option>Fotógrafo / Videógrafo</option>
+        <option>Ilustrador / Diseñador</option>
+        <option>Actor / Artista escénico</option>
+        <option>Otro arte creativo</option>
+      </select>
+      <button type="submit">Quiero mi plaza gratis →</button>
+    </form>
+
+    <p class="form-legal">Sin spam. Solo recibirás el enlace al webinar y el recordatorio.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Diego Caride · <a href="https://instagram.com/diegocaridemusic">@diegocaridemusic</a></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // Form submit — conectar con Google Forms o tu backend
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = '✓ Plaza reservada — te enviamos el enlace';
+    btn.style.background = '#2d6a2d';
+    btn.style.color = '#fff';
+    btn.disabled = true;
+    // Aquí conectas con tu formulario de Google o tu backend
+    // fetch('/api/registro', { method: 'POST', body: ... })
+  }
+</script>
+
+</body>
+</html>
