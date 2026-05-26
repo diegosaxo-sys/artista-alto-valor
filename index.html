@@ -1040,11 +1040,14 @@
 
       if (!res.ok) throw new Error('Error al guardar');
 
-      // 2. Mandar email via Zapier
+      // 2. Mandar email via Zapier (sin Content-Type para evitar CORS preflight)
+      const formData = new FormData();
+      formData.append('nombre', nombre);
+      formData.append('email', email);
+      formData.append('disciplina', disciplina);
       fetch('https://hooks.zapier.com/hooks/catch/21542261/4ond16a/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email, disciplina })
+        body: formData
       }).catch(err => console.warn('Zapier pendiente:', err));
 
       btn.textContent = '✓ Plaza reservada — revisa tu email';
