@@ -1040,12 +1040,12 @@
 
       if (!res.ok) throw new Error('Error al guardar');
 
-      // 2. Mandar email en paralelo sin bloquear la UI
-      fetch(`${EMAIL_SERVER}/confirmar`, {
+      // 2. Mandar email via Zapier
+      fetch('https://hooks.zapier.com/hooks/catch/21542261/4ond16a/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email })
-      }).catch(err => console.warn('Email pendiente:', err));
+        body: JSON.stringify({ nombre, email, disciplina })
+      }).catch(err => console.warn('Zapier pendiente:', err));
 
       btn.textContent = '✓ Plaza reservada — revisa tu email';
       btn.style.background = '#2d6a2d';
