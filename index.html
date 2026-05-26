@@ -51,6 +51,27 @@
     padding: 80px 24px 60px;
     text-align: center;
     overflow: hidden;
+    background-image: url('https://zpumfpjxkahxffkixjsn.supabase.co/storage/v1/object/public/webinar/landing.jpg');
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,9,8,0.70) 0%,
+      rgba(10,9,8,0.50) 35%,
+      rgba(10,9,8,0.82) 70%,
+      rgba(10,9,8,1) 100%
+    );
+    z-index: 0;
+  }
+
+  .hero > * {
+    position: relative;
+    z-index: 1;
   }
 
   .hero::before {
@@ -724,10 +745,12 @@
 <!-- HERO -->
 <section class="hero">
 
-  <!-- LOGO — reemplaza con: <img class="logo" src="TU_URL_LOGO" alt="Diego Caride"> -->
-  <img class="logo" src="https://drive.google.com/uc?export=view&id=1LaDQoK_RJPtWHNZSE4kfii68jGT5WA17" alt="Diego Caride" style="height:36px;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease 0.1s forwards;">
+  <div class="hero-overlay"></div>
 
-  <img class="hero-foto" src="https://drive.google.com/uc?export=view&id=1ArzTtTy5X9__LLJQIXf6ru2i1Db2jpPo" alt="Diego Caride" style="opacity:0;animation:fadeUp 0.8s ease 0.2s forwards;width:110px;height:110px;border-radius:50%;object-fit:cover;border:1.5px solid var(--dorado);margin-bottom:32px;">
+  <!-- LOGO — reemplaza con: <img class="logo" src="TU_URL_LOGO" alt="Diego Caride"> -->
+  <img class="logo" src="https://zpumfpjxkahxffkixjsn.supabase.co/storage/v1/object/public/webinar/DC%20logo%20W-B%20(1).png" alt="Diego Caride" style="height:36px;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease 0.1s forwards;">
+
+  
 
   <p class="eyebrow">Webinar Gratuito · 8 de Junio</p>
 
@@ -777,7 +800,7 @@
     </p>
     <div class="historia-firma">
       <div class="historia-foto">
-        <img src="https://drive.google.com/uc?export=view&id=1ArzTtTy5X9__LLJQIXf6ru2i1Db2jpPo" alt="Diego" style="width:100%;height:100%;object-fit:cover;">
+        <img src="https://zpumfpjxkahxffkixjsn.supabase.co/storage/v1/object/public/webinar/landing.jpg" alt="Diego" style="width:100%;height:100%;object-fit:cover;">
       </div>
       <div>
         <p class="historia-nombre">Diego Caride</p>
