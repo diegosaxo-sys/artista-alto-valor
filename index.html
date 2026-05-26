@@ -52,8 +52,10 @@
     text-align: center;
     overflow: hidden;
     background-image: url('https://zpumfpjxkahxffkixjsn.supabase.co/storage/v1/object/public/webinar/landing.jpg');
-    background-size: cover;
-    background-position: center top;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: var(--negro);
   }
 
   .hero-overlay {
@@ -61,10 +63,10 @@
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(10,9,8,0.70) 0%,
-      rgba(10,9,8,0.50) 35%,
-      rgba(10,9,8,0.82) 70%,
-      rgba(10,9,8,1) 100%
+      rgba(10,9,8,0.3) 0%,
+      rgba(10,9,8,0.2) 30%,
+      rgba(10,9,8,0.7) 65%,
+      rgba(10,9,8,1) 90%
     );
     z-index: 0;
   }
@@ -146,6 +148,21 @@
     font-size: 18px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+  }
+
+  .logo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .hero-logo-wrap {
+    position: absolute;
+    top: 32px;
+    left: 40px;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.1s forwards;
   }
 
   .eyebrow {
@@ -748,7 +765,7 @@
   <div class="hero-overlay"></div>
 
   <!-- LOGO — reemplaza con: <img class="logo" src="TU_URL_LOGO" alt="Diego Caride"> -->
-  <img class="logo" src="https://zpumfpjxkahxffkixjsn.supabase.co/storage/v1/object/public/webinar/logo.png" alt="Diego Caride" style="height:36px;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s ease 0.1s forwards;">
+  <div class="hero-logo-wrap"><img src="https://zpumfpjxkahxffkixjsn.supabase.co/storage/v1/object/public/webinar/logo.png" alt="Diego Caride" style="height:70px;width:auto;"></div>
 
   
 
