@@ -795,7 +795,7 @@
     Cómo multiplicar tus tarifas, poner tus condiciones y automatizar tu negocio con IA — aunque ahora mismo sientas que el mercado no te valora.
   </p>
 
-  <div class="fecha-badge">Lunes 8 de junio · 20:00h · Online · Gratuito</div>
+  <div class="fecha-badge">Lunes 8 de junio · 20:00h (hora española) · Online · Gratuito</div>
 
   <a href="#registro" class="cta-primary">Reservar mi plaza gratis</a>
   <p class="hero-nota">Plazas limitadas · Sin compromiso</p>
@@ -929,7 +929,7 @@
   <div class="webinar-detalles">
     <div class="detalle reveal">
       <p class="detalle-label">Fecha</p>
-      <p class="detalle-valor">8 Jun · 20:00h</p>
+      <p class="detalle-valor">8 Jun · 20:00h<br><span style="font-size:13px;color:var(--gris);">hora española</span></p>
     </div>
     <div class="detalle reveal">
       <p class="detalle-label">Formato</p>
@@ -1040,12 +1040,12 @@
 
       if (!res.ok) throw new Error('Error al guardar');
 
-      // 2. Mandar email de confirmación
-      await fetch(`${EMAIL_SERVER}/confirmar`, {
+      // 2. Mandar email en paralelo sin bloquear la UI
+      fetch(`${EMAIL_SERVER}/confirmar`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, email })
-      });
+      }).catch(err => console.warn('Email pendiente:', err));
 
       btn.textContent = '✓ Plaza reservada — revisa tu email';
       btn.style.background = '#2d6a2d';
