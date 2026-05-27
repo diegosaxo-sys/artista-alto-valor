@@ -1041,14 +1041,12 @@
       if (!res.ok) throw new Error('Error al guardar');
 
       // 2. Mandar email via Zapier (sin Content-Type para evitar CORS preflight)
-      const formData = new FormData();
-      formData.append('nombre', nombre);
-      formData.append('email', email);
-      formData.append('disciplina', disciplina);
-      fetch('https://hook.eu1.make.com/vnl8egluhddx86e908sw4bdwta3zff2s', {
+      // Llamar al servidor de Render que reenvía a Make sin CORS
+      fetch('https://webinar-emails-diego.onrender.com/confirmar', {
         method: 'POST',
-        body: formData
-      }).catch(err => console.warn('Zapier pendiente:', err));
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, email, disciplina })
+      }).catch(err => console.warn('Email pendiente:', err));
 
       btn.textContent = '✓ Plaza reservada — revisa tu email';
       btn.style.background = '#2d6a2d';
